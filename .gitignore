@@ -6,4 +6,5 @@ dist/
 .env
 *.local
 apps/api/src/generated/
+apps/api/migrations/
 apps/api/prisma/migrations/*/migration_lock.toml
