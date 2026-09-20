@@ -120,6 +120,50 @@ export function buildApp(options: { db?: pg.Pool; env?: Env } = {}): FastifyInst
 
   app.get("/health", async () => ({ ok: true }));
 
+  app.get("/", async (_request, reply) => reply.type("text/html; charset=utf-8").send(`<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Slop Labels</title>
+    <style>
+      :root { color-scheme: light; font-family: Inter, ui-sans-serif, system-ui, sans-serif; color: #172033; background: #f4f7fb; }
+      body { margin: 0; }
+      main { box-sizing: border-box; max-width: 760px; margin: 0 auto; padding: 72px 24px; }
+      .card { padding: 42px; border: 1px solid #d8e1ef; border-radius: 24px; background: #fff; box-shadow: 0 18px 50px #23395d12; }
+      .eyebrow { margin: 0 0 14px; color: #2563eb; font-size: 14px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+      h1 { margin: 0; font-size: clamp(36px, 7vw, 64px); line-height: 1.02; letter-spacing: -.04em; }
+      p { color: #5f6f89; font-size: 19px; line-height: 1.55; }
+      ul { display: grid; gap: 12px; margin: 28px 0; padding: 0; list-style: none; }
+      li { padding: 14px 16px; border-radius: 12px; background: #f4f7fb; font-size: 17px; }
+      li strong { color: #172033; }
+      nav { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 30px; }
+      a { color: #2563eb; font-weight: 700; }
+      footer { margin-top: 24px; color: #7b879a; font-size: 14px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="card">
+        <p class="eyebrow">Community labels</p>
+        <h1>AI Slop Labels</h1>
+        <p>Метки сообщества для материалов, которые могут быть написаны с помощью ИИ.</p>
+        <ul>
+          <li><strong>Человек</strong> — сообщество считает текст написанным человеком.</li>
+          <li><strong>Смешанное</strong> — в тексте могли использоваться разные источники.</li>
+          <li><strong>ИИ</strong> — достаточно голосов сообщества за такой вариант.</li>
+        </ul>
+        <p>Расширение показывает оценки прямо на поддерживаемых страницах и позволяет оставить собственный голос с необязательным комментарием.</p>
+        <nav>
+          <a href="https://github.com/skrylnikov/ai-slop-detect">Исходный код на GitHub</a>
+          <a href="https://github.com/skrylnikov/ai-slop-detect/blob/main/PRIVACY.md">Политика конфиденциальности</a>
+        </nav>
+      </section>
+      <footer>Оценки отражают мнение сообщества, а не доказательство происхождения или качества текста.</footer>
+    </main>
+  </body>
+</html>`));
+
   app.post<{ Body: { articleIds?: unknown[] } }>("/api/articles/summary", async (request, reply) => {
     const rawIds = Array.isArray(request.body?.articleIds) ? request.body.articleIds : [];
     const parsedIds = rawIds.map(parseArticleId);
