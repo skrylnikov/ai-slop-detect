@@ -1,0 +1,6 @@
+.git
+.output
+node_modules
+apps/extension/.output
+apps/api/prisma/contract.d.ts
+apps/api/prisma/contract.json

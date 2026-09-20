@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ai_slop
+      POSTGRES_PASSWORD: ai_slop
+      POSTGRES_DB: ai_slop_labels
+    ports:
+      - "5432:5432"
+    volumes:
+      - ai-slop-labels-postgres:/var/lib/postgresql/data
+      - ./apps/api/prisma/bootstrap.sql:/docker-entrypoint-initdb.d/001-bootstrap.sql:ro
+
+volumes:
+  ai-slop-labels-postgres:

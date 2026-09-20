@@ -1,0 +1,9 @@
+node_modules/
+.pnpm-store/
+dist/
+.output/
+.wxt/
+.env
+*.local
+apps/api/src/generated/
+apps/api/prisma/migrations/*/migration_lock.toml

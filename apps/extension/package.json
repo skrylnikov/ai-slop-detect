@@ -1,0 +1,27 @@
+{
+  "name": "@ai-slop-labels/extension",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox --mv3",
+    "dev": "wxt",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@ai-slop-labels/api": "workspace:*",
+    "@wxt-dev/module-react": "1.1.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "wxt": "0.21.4"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.1.7",
+    "@types/react": "19.2.6",
+    "@types/react-dom": "19.2.3",
+    "vitest": "5.0.1"
+  }
+}

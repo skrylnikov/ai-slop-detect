@@ -1,0 +1,65 @@
+// use prisma-8
+
+enum VoteKind {
+  human
+  partial
+  ai
+}
+
+model User {
+  id          String    @id @default(uuid())
+  githubId    String    @unique
+  login       String
+  displayName String
+  blockedAt   String?
+  createdAt   String
+  updatedAt   String
+}
+
+model Session {
+  id        String @id @default(uuid())
+  tokenHash String @unique
+  userId    String
+  expiresAt String
+  revokedAt String?
+  createdAt String
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, expiresAt])
+}
+
+model OAuthTransaction {
+  id                 String  @id @default(uuid())
+  state              String  @unique
+  verifierCiphertext String
+  redirectUri        String
+  clientChallenge    String
+  expiresAt          String
+  createdAt          String
+}
+
+model OAuthExchange {
+  id            String @id @default(uuid())
+  code          String @unique
+  transactionId String @unique
+  userId        String
+  verifierHash  String
+  expiresAt      String
+  consumedAt     String?
+  createdAt      String
+}
+
+model Vote {
+  id              String   @id @default(uuid())
+  articleId       Int
+  userId          String
+  kind            VoteKind
+  comment         String?
+  commentHiddenAt String?
+  createdAt       String
+  updatedAt       String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([articleId, userId])
+  @@index([articleId, updatedAt, id])
+}

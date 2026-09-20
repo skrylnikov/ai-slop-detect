@@ -1,0 +1,33 @@
+{
+  "name": "@ai-slop-labels/api",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./contracts": "./src/contracts.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "dev": "tsx watch src/server.ts",
+    "contract:emit": "prisma contract emit",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run src",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@fastify/cors": "11.1.0",
+    "@fastify/rate-limit": "10.3.0",
+    "@prisma/management-api-sdk": "1.69.0",
+    "@prisma/orm-postgres": "8.0.0-rc.11",
+    "dotenv": "17.4.2",
+    "fastify": "5.12.5",
+    "pg": "8.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.10.1",
+    "@types/pg": "8.15.6",
+    "prisma": "8.0.0-rc.15",
+    "tsx": "4.20.6",
+    "vitest": "5.0.1"
+  }
+}
